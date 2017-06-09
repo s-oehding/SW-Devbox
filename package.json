@@ -1,0 +1,22 @@
+{
+  "name": "ml-vagrant-ansible-devbox-v3",
+  "version": "1.0.0",
+  "description": "Vagrant Development environment provisioned by Ansible",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "setup": "node setup.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sören Oehding",
+  "license": "ISC",
+  "dependencies": {
+    "ascii-art": "^1.4.2",
+    "clear": "0.0.1",
+    "fs-utils": "^0.7.0",
+    "inquirer": "^3.0.1",
+    "node-vagrant": "^1.0.8",
+    "vagrant": "0.0.1",
+    "yamljs": "^0.2.8"
+  }
+}

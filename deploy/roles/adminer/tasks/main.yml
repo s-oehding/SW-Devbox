@@ -1,0 +1,60 @@
+---
+- name: Adminer | add directory
+  file:
+    path: "{{ adminer_download_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - configuration
+    - adminer
+    - adminer-download
+
+- name: Adminer | download (core - latest)
+  get_url:
+    url: "{{ adminer_download_url }}"
+    dest: "{{ adminer_download_path }}/latest.php"
+    owner: root
+    group: root
+    mode: 0644
+    force: true
+  tags:
+    - configuration
+    - adminer
+    - adminer-download
+
+- name: Adminer | download (skin)
+  get_url:
+    url: "{{ adminer_skin_url }}"
+    dest: "{{ adminer_download_path }}/adminer.css"
+    owner: root
+    group: root
+    mode: 0755
+    force: true
+  tags:
+    - configuration
+    - adminer
+    - adminer-download
+    - adminer-theme
+
+- name: Adminer | install
+  file:
+    src: "{{ adminer_download_path }}/latest.php"
+    dest: "{{ adminer_download_path }}/index.php"
+    state: link
+    force: true
+  tags:
+    - configuration
+    - adminer
+    - adminer-install
+
+- name: Adminer | create subdomain virtual host file
+  template: src=vhost.conf dest=/etc/apache2/sites-available/db.{{ vm.domain }}.conf
+
+- name: Apache2 | a2ensite db.{{ vm.domain }}
+  command: a2ensite db.{{ vm.domain }}
+  args:
+    creates: /etc/apache2/sites-enabled/db.{{ vm.domain }}.conf
+  notify:
+    - restart apache

@@ -1,0 +1,56 @@
+---
+#VM Setup
+- name: Setup | Add user Vagrant to ADM Group
+  user: name=vagrant groups=adm append=yes
+
+- name: Setup | Ensures project folders are present on Guest
+  file: path=/var/www/{{ item }} state=directory
+  with_items:
+    - html
+
+- name: Setup | Install misc packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - ant
+    - bash-completion
+    - build-essential
+    - curl
+    - git
+    - htop
+    - libsqlite3-dev
+    - python-pycurl
+    - rsync
+    - sudo
+    - tree
+    - unzip
+    - wget
+    - zip
+
+- name: Setup | Install language packs locale support
+  apt: name={{ item }} state=latest
+  with_items:
+    - language-pack-de-base
+
+- name: Setup | copy tmux config
+  template: src=tmux.conf dest=~/.tmux.conf
+
+- name: Setup | be sure ntp is installed
+  apt: pkg=ntp state=installed
+  tags: ntp
+  become: yes
+
+- name: Setup | be sure ntpd is running and enabled
+  service: name=ntp state=running enabled=yes
+  tags: ntp
+  become: yes
+
+- name: Setup | Add a ~/bin to PATH
+  lineinfile: dest=~/.bashrc line='PATH="$HOME/bin:$PATH"'
+
+- name: Setup | Make sure ~/bin exists
+  file: path=~/bin state=directory
+
+- name: Setup | Copy common files to ~/bin
+  copy: src={{ item }} dest=~/bin/  mode=755
+  with_fileglob:
+    - bin/*

@@ -1,0 +1,5 @@
+# vars file for adminer
+---
+adminer_download_path: /var/www/db
+adminer_download_url: http://www.adminer.org/latest.php
+adminer_skin_url: https://raw.githubusercontent.com/pepa-linha/Adminer-Design-Dark/master/adminer.css
