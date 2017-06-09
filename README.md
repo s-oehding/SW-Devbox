@@ -1,13 +1,13 @@
-#Vagrant Dev Environment
+# Vagrant Dev Environment
 
-##How to use: 
+## How to use: 
 
-###First time setup: 
+### First time setup: 
 
-####Install Dependencies
+#### Install Dependencies
 `npm install` 
-####Run setup script and follow the instructions
+#### Run setup script and follow the instructions
 `npm run setup`
 
-If everithing is set up, just run:
+If everything is set up, just run:
 `npm start` 
