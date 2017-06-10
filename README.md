@@ -48,18 +48,19 @@ The following PHP Versions are installed by default:
  - PHP 7.1
 
 ( The following points are shamelesly borrowed from the official sw-labs Dev Machine so Thx ;)
+
 Call one of the following commands to change the PHP Version:
  
-    `$ setphp_5.6` 
-    `$ setphp_7.0` 
-    `$ setphp_7.1` 
+    $ setphp_5.6 
+    $ setphp_7.0 
+    $ setphp_7.1  
 
 #### Composer
 Composer is installed globally and available via:
 
-	`$ composer`
+	$ composer
 
 #### SW-Cli-Tools
 SW-Cli-Tools are installed globally and available via:
 
-	`$ sw`
+	$ sw
