@@ -1,8 +1,11 @@
 .vagrant
 vagrant_ansible_inventory_*
-provisioning/host_vars/development
+deploy/vars/*
 packer*
 inventory
 node_modules
 www
 *.log
+
+!.gitignore
+!*/
