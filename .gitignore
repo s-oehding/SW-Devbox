@@ -1,3 +1,8 @@
 .vagrant
+vagrant_ansible_inventory_*
+provisioning/host_vars/development
+packer*
+inventory
 node_modules
 www
+*.log

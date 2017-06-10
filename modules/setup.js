@@ -17,7 +17,6 @@ function runSetup(state) {
 	    conf.vm.ram = answers.ram;
 	    conf.vm.cpu = answers.cpu;
 	    conf.vm.http_port = 80;
-	    conf.shopware.version = answers.shopwareVersion;
 	    writeConfig("deploy/vars/all.yml", conf);
 	    return state = 2;
 	});

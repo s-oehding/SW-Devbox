@@ -3,12 +3,12 @@
  */
 
 'use strict';
-var ascii = require('./modules/ascii');
-var clear = require('clear');
-var setup = require('./modules/setup');
+let ascii = require('./modules/ascii');
+let clear = require('clear');
+let setup = require('./modules/setup');
 
 let state = 0
 
 clear();
-ascii.render('monolabs', 'banner', 'green');
+ascii.render('VM-Setup', 'larry3d', 'green');
 setTimeout(function(){ setup.run(state) }, 100);

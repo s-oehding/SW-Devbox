@@ -1,19 +1,18 @@
 vm:
   ip: 192.168.0.173
-  hostname: ml-devbox
-  domain: ml.dev
-  ram: '4096'
-  cpu: '50'
+  hostname: ''
+  domain: ''
+  ram: 4096
+  cpu: 4
   http_port: 80
 server:
   timezone: Europe/Berlin
   locale: de_DE.UTF-8
-shopware:
-  version: 5.2.x
 apache:
+  user: vagrant
+  group: vagrant
   vhosts:
     - {servername: "shopware", documentroot: "/var/www/shopware", php: "70"}
-    - {servername: "test", documentroot: "/var/www/test", php: "56"}
 logio:
   logio_backend_port: '28777'
   logio_frontend_port: '28778'
@@ -21,8 +20,8 @@ logio:
   subdomain: log
 mysql:
   mysql_root_password: root
-  db_name: testdb
-  db_user: db_user
+  db_name: shopware
+  db_user: shopware
   db_password: password
 nodejs:
   nodejs_version: 6.9
@@ -32,7 +31,25 @@ php:
   versions:
     - 5.6
     - 7.0
+    - 7.1
   packages:
+    - libapache2-mod-php7.1
+    - php7.1-cli
+    - php7.1-zip
+    - php7.1-intl
+    - php7.1-mcrypt
+    - php7.1-curl
+    - php7.1-cgi
+    - php7.1-common
+    - php7.1-gd
+    - php7.1-memcache
+    - php7.1-memcached
+    - php7.1-mysql
+    - php7.1-mbstring
+    - php7.1-xdebug
+    - php7.1-simplexml
+
+    - libapache2-mod-php7.0
     - php7.0-cli
     - php7.0-zip
     - php7.0-intl
@@ -47,10 +64,11 @@ php:
     - php7.0-mbstring
     - php7.0-xdebug
     - php7.0-simplexml
+
+    - libapache2-mod-php5.6
     - php5.6-cli
     - php5.6-intl
     - php5.6-mcrypt
-    - php-pear
     - php5.6-curl
     - php5.6-cgi
     - php5.6-common
@@ -61,6 +79,10 @@ php:
     - php5.6-mysql
     - php5.6-xdebug
     - php5.6-simplexml
+
+    - php-pear
+    - php-apcu
+    - php-xdebug
   php_memory_limit: 512M
   php_max_execution_time: '120'
   php_max_input_time: '120'

@@ -1,15 +1,22 @@
 ---
 #VM Setup
-- name: Setup | Add user Vagrant to ADM Group
-  user: name=vagrant groups=adm append=yes
-
 - name: Setup | Ensures project folders are present on Guest
   file: path=/var/www/{{ item }} state=directory
+  become: yes
   with_items:
     - html
 
+- name: Setup | install aptitude
+  apt: pkg=aptitude
+  become: yes
+
+- name: Setup | upgrade the distro
+  apt: upgrade=yes
+  become: yes
+
 - name: Setup | Install misc packages
   apt: name={{ item }} state=latest
+  become: yes
   with_items:
     - ant
     - bash-completion
@@ -28,26 +35,27 @@
 
 - name: Setup | Install language packs locale support
   apt: name={{ item }} state=latest
+  become: yes
   with_items:
     - language-pack-de-base
 
-- name: Setup | copy tmux config
+- name: Setup | Copy tmux config
   template: src=tmux.conf dest=~/.tmux.conf
 
-- name: Setup | be sure ntp is installed
+- name: Setup | Ensure ntp is installed
   apt: pkg=ntp state=installed
   tags: ntp
   become: yes
 
-- name: Setup | be sure ntpd is running and enabled
-  service: name=ntp state=running enabled=yes
+- name: Setup | Ensure ntpd is started and enabled
+  service: name=ntp state=started enabled=yes
   tags: ntp
   become: yes
 
 - name: Setup | Add a ~/bin to PATH
   lineinfile: dest=~/.bashrc line='PATH="$HOME/bin:$PATH"'
 
-- name: Setup | Make sure ~/bin exists
+- name: Setup | Ensure ~/bin exists
   file: path=~/bin state=directory
 
 - name: Setup | Copy common files to ~/bin

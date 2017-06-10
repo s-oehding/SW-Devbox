@@ -8,11 +8,7 @@ vagrant_config = configs['vm']
 
 Vagrant.configure("2") do |config|
 
-    #config.vm.box = "ubuntu/trusty64"
-    config.vm.box = "ubuntu/xenial64"
-    # config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64"
-
-    # config.vm.provision 'shell', inline: "if ! grep -q $(cat /etc/hostname) /etc/hosts; then echo >> /etc/hosts echo 127.0.0.1 $(cat /etc/hostname) >> /etc/hosts fi"
+    config.vm.box = "bento/ubuntu-16.04"
 
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
@@ -64,17 +60,19 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true
     config.vm.network :forwarded_port, guest: 3001, host: 3001, auto_correct: true
 
-    config.vm.synced_folder "./www", "/var/www", create: true,
-    owner: "ubuntu",
-    group: "www-data",
-    mount_options: ["dmode=775,fmode=664"]
+    config.vm.synced_folder "./www", "/var/www", create: true
 
     #"Stdin is not a TTY" - Fix
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
-    config.vm.provision "shell" do |shell|
-        shell.path =  "./deploy/init.sh"
-        shell.args   = "'hello, world!'"
-      end
+    #config.vm.provision "shell" do |shell|
+        #shell.path =  "./deploy/init.sh"
+        #shell.args   = "'hello, world!'"
+    #end
+    
+    # Run Ansible from the Vagrant VM
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "deploy/vagrant.yml"
+    end
 
 end

@@ -2,6 +2,7 @@
   # MySQL
   - name: MySQL | install
     apt: name={{ item }} state=latest
+    become: yes
     with_items:
       - mysql-server
       - mysql-client
@@ -24,9 +25,11 @@
       - localhost
 
   - name: MySQL | copy .my.cnf file with root password credentials
+    become: yes
     template: src=.my.cnf dest=/root/.my.cnf owner=root mode=0600
 
   - name: MySQL | add mysql user
+    become: yes
     mysql_user: 
       name: "{{ mysql.db_user }}"
       host: "{{ item }}" 
@@ -39,14 +42,17 @@
       - localhost
 
   - name: MySQL | create mysql databases
+    become: yes
     mysql_db: name={{ item }}
               state=present
     with_items:
       - "{{ mysql.db_name }}"
 
   - name: MySQL | check conf.d directory
+    become: yes
     file: path=/etc/mysql/conf.d state=directory
 
   - name: MySQL | Set MySQL number of connections
+    become: yes
     copy: src=max_connections.cnf dest=/etc/mysql/conf.d/max_connections.cnf
     notify: restart mysql

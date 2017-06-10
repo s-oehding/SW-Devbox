@@ -1,23 +1,23 @@
 ---
-- name: Cleanup - Remove old PHP Versions
+- name: PHP | Cleanup - Remove old PHP Versions
   become: true
   apt: pkg=php5-common state=absent purge=yes autoremove=yes
 
-- name: Add ppa Repository
+- name: PHP | Add ppa Repository
   become: true
   apt_repository: repo=ppa:ondrej/{{ php.ppa }}
 
-- name: Update apt
+- name: PHP | Update apt
   become: true
   apt: update_cache=yes
 
-- name: Install PHP Versions
+- name: PHP | Install PHP Versions
   become: true
   apt: pkg=php{{ item }} state=latest
   with_items: "{{ php.versions }}"
   when: php.versions is defined
 
-- name: Install PHP Packages
+- name: PHP | Install PHP Packages
   become: true
   apt: pkg={{ item }} state=latest
   with_items: "{{ php.packages }}"

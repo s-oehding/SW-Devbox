@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
-cd /home/vagrant/www
+cd /var/www
 git clone https://github.com/shopware/shopware.git
 cd shopware/build/
-ant write-properties -Dapp.host=192.168.33.10 -Dapp.path=/shopware -Ddb.name=shopware -Ddb.host=localhost -Ddb.user=root -Ddb.password=shopware
+ant write-properties -Dapp.host=192.168.33.10 -Dapp.path=/shopware -Ddb.name=shopware -Ddb.host=localhost -Ddb.user=shopware -Ddb.password=password
 ant build-unit

@@ -1,5 +1,6 @@
 ---
-- name: Place PHP {{ item }} apache2 configuration file in place.
+- name: PHP | Place PHP {{ item }} apache2 configuration file in place.
+  become: yes
   template:
     src: php.ini.j2
     dest: "/etc/php/{{ item }}/apache2/php.ini"
@@ -8,9 +9,9 @@
     mode: 0644
   with_items:
     - "{{ php.versions }}"
-  notify: restart php-fpm
 
-- name: Place PHP {{ item }} cgi configuration file in place.
+- name: PHP | Place PHP {{ item }} cgi configuration file in place.
+  become: yes
   template:
     src: php.ini.j2
     dest: "/etc/php/{{ item }}/cgi/php.ini"
@@ -19,9 +20,9 @@
     mode: 0644
   with_items:
     - "{{ php.versions }}"
-  notify: restart php-fpm
 
-- name: Place PHP {{ item }} cli configuration file in place.
+- name: PHP | Place PHP {{ item }} cli configuration file in place.
+  become: yes
   template:
     src: php.ini.j2
     dest: "/etc/php/{{ item }}/cli/php.ini"
@@ -30,15 +31,3 @@
     mode: 0644
   with_items:
     - "{{ php.versions }}"
-  notify: restart php-fpm
-
-- name: Place PHP {{ item }} fpm configuration file in place.
-  template:
-    src: php.ini.j2
-    dest: "/etc/php/{{ item }}/fpm/php.ini"
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - "{{ php.versions }}"
-  notify: restart php-fpm
