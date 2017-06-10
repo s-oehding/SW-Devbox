@@ -12,16 +12,16 @@ In order to run this Machine you need Virtualbox and Vagrant (min. Version 1.8) 
 #### First time setup: 
 Clone the repository to your local machine.
 
-    `$ git clone git@github.com:s-oehding/SW-Devbox.git <your-project-name>`
-    `$ cd <your-project-name>
+    $ git clone git@github.com:s-oehding/SW-Devbox.git <your-project-name>
+    $ cd <your-project-name>
 
-Install Dependencies
+Install Dependencies 
 	`$ npm install`
 
-Run setup script and follow the instructions
+Run setup script and follow the instructions 
 	`$ npm run setup`
 
-If everything is set up, just run:
+If everything is set up, just run: 
 	`$ npm start`
 
 
@@ -46,12 +46,13 @@ The following PHP Versions are installed by default:
  - PHP 5.6
  - PHP 7.0
  - PHP 7.1
+
 ( The following points are shamelesly borrowed from the official sw-labs Dev Machine so Thx ;)
 Call one of the following commands to change the PHP Version:
  
-    `$ setphp_5.6`
-    `$ setphp_7.0`
-    `$ setphp_7.1`
+    `$ setphp_5.6` 
+    `$ setphp_7.0` 
+    `$ setphp_7.1` 
 
 #### Composer
 Composer is installed globally and available via:
