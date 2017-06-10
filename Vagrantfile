@@ -64,15 +64,16 @@ Vagrant.configure("2") do |config|
 
     #"Stdin is not a TTY" - Fix
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-
-    #config.vm.provision "shell" do |shell|
-        #shell.path =  "./deploy/init.sh"
-        #shell.args   = "'hello, world!'"
-    #end
     
     # Run Ansible from the Vagrant VM
     config.vm.provision "ansible_local" do |ansible|
         ansible.playbook = "deploy/vagrant.yml"
     end
+
+    config.vm.provision "shell", privileged: false, inline: <<-EOF
+      echo "Vagrant Box provisioned!"
+      echo "Local server address is http://#{$hostname}"
+      echo "Local server address is http://#{$ip}"
+    EOF
 
 end
