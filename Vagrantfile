@@ -28,9 +28,10 @@ Vagrant.configure("2") do |config|
         url = vagrant_config['domain']
         database = "db."+vagrant_config['domain']
         dashboard = "dashboard."+vagrant_config['domain']
+        log = "log."+vagrant_config['domain']
         mail = "mail."+vagrant_config['domain']
         shopware = "shopware."+vagrant_config['domain']
-        node.hostmanager.aliases = [url, database, dashboard, mail, shopware]
+        node.hostmanager.aliases = [url, database, dashboard, log, mail, shopware]
     end
 
     # VirtualBox Cpu settings

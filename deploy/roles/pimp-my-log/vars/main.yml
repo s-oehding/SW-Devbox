@@ -1,0 +1,4 @@
+# vars file for adminer
+---
+pimpMyLog_dir: /var/www/pimpMyLog
+pimpMyLog_repo_url: https://github.com/potsky/PimpMyLog.git

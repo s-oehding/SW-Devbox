@@ -31,3 +31,21 @@
     mode: 0644
   with_items:
     - "{{ php.versions }}"
+
+- name: PHP | Ensures /var/log/php/ dir exists
+  become: yes
+  file:
+    path=/var/log/php/
+    recurse=yes
+    state=directory
+
+- name: PHP | Create initial log files
+  become: yes
+  file:
+    state: touch
+    path: "{{ item }}"
+    owner: vagrant
+    group: vagrant
+    mode: 0664
+  with_items:
+    - "/var/log/php/error.log"

@@ -1,0 +1,44 @@
+---
+- name: PimpMyLog | add directory
+  file:
+    path: "{{ pimpMyLog_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - configuration
+    - adminer
+    - adminer-download
+
+- name: PimpMyLog | clone repo
+  git:
+    repo: "{{ pimpMyLog_repo_url }}"
+    dest: "{{ pimpMyLog_dir }}"
+  tags:
+    - configuration
+    - adminer
+    - adminer-download
+
+- name: PimpMyLog | install
+  file:
+    src: "{{ adminer_download_path }}/latest.php"
+    dest: "{{ adminer_download_path }}/index.php"
+    state: link
+    force: true
+  tags:
+    - configuration
+    - adminer
+    - adminer-install
+
+- name: PimpMyLog | create subdomain virtual host file
+  become: yes
+  template: src=vhost.conf dest=/etc/apache2/sites-available/log.{{ vm.domain }}.conf
+
+- name: Apache2 | a2ensite log.{{ vm.domain }}
+  become: yes
+  command: a2ensite log.{{ vm.domain }}
+  args:
+    creates: /etc/apache2/sites-enabled/log.{{ vm.domain }}.conf
+  notify:
+    - restart apache
